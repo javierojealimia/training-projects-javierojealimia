@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "scripts": {
     "build:prod": "ng build --prod",
-    "build:pub": "ng build --prod --output-path docs --base-href https://trainingit-introangular-ed2.github.io/training-projects/",
+    "build:pub": "ng build --prod --output-path docs --base-href https://trainingit-introangular-ed2.github.io/training-projects-javierojealimia/",
     "e2e": "ng e2e",
     "http-server": "http-server ./dist/training-projects/ -c-1 -p4271 -a localhost -o",
     "lint": "ng lint",
