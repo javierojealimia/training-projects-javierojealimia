@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewprojectComponent } from './newproject/newproject.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ViewerprojectComponent } from './viewerproject/viewerproject.component';
 
@@ -9,10 +10,14 @@ const routes: Routes = [
     component: ProjectsComponent,
     children: [
       {
-        path: ':id',
-        component: ViewerprojectComponent
+        path: 'new',
+        component: NewprojectComponent
       }
     ]
+  },
+  {
+    path: 'project/:id',
+    component: ViewerprojectComponent
   }
 ];
 

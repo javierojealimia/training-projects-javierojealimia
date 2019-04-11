@@ -1,16 +1,19 @@
 
+  <a routerLink="new" class="button"> <span> Nuevo proyecto</span> </a>
+  <router-outlet></router-outlet>
   <main class="contenedor">
   <table *ngIf="projects.length>0; else empty" class="striped hoverable">
     <tr>
       <th>Id</th>
       <th>Nombre</th>
+      <th></th>
     </tr>
     <tr *ngFor="let project of projects">
       <td>{{project.id}}</td>
       <td>{{ project.name }}</td>
-      <td><a routerLink="{{project.id}}" class="button"> <span> Mas información</span> </a></td>
+      <td><a routerLink="project/{{project.id}}" class=""> <span class="icon-edit"></span> </a></td>
     </tr>
 </table>
 <ng-template #empty> <i>No data yet</i> </ng-template>
 </main>
-<router-outlet></router-outlet>
+

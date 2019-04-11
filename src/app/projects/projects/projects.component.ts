@@ -9,11 +9,13 @@ import { environment } from '../../resources/enviroment/enviroment.resources';
 export class ProjectsComponent implements OnInit {
 
   public projects: { id: number; name: string; }[];
+  public formHidden: boolean;
 
   constructor() { }
 
   ngOnInit() {
     this.projects = environment.projects;
+    this.formHidden = false;
   }
 
 }
