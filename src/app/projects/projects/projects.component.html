@@ -1,6 +1,13 @@
 
-  <a routerLink="new" class="button"> <span> Nuevo proyecto</span> </a>
-  <router-outlet></router-outlet>
+  <a class="button" [ngClass]="{ hidden: formHidden }" (click) = "showNewProject()">
+    <span> Nuevo proyecto</span>
+  </a>
+
+  <app-newproject
+    [ngClass] = "{ hidden: !formHidden }"
+    (hideNewForm) = "hideNewProject()">
+  </app-newproject>
+
   <main class="contenedor">
   <table *ngIf="projects.length>0; else empty" class="striped hoverable">
     <tr>

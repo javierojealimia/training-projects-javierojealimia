@@ -18,4 +18,12 @@ export class ProjectsComponent implements OnInit {
     this.formHidden = false;
   }
 
+  public showNewProject() {
+    this.formHidden = true;
+  }
+
+  public hideNewProject() {
+    this.formHidden = false;
+  }
+
 }

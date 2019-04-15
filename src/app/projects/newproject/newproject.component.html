@@ -12,7 +12,7 @@
     </section>
   </fieldset>
   <input value="Guardar" type="submit" (click)="saveProject()" />
-  <a routerLink="/projects" class="button secondary"> <span class="">Cancelar</span> </a>
+  <a routerLink="/projects" class="button secondary" (click)="hideNewForm.emit(true)"> <span class="">Cancelar</span> </a>
 </form>
 
 <div class="{{classStatus}}">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Project } from '../../model/project.model';
 import { environment } from '../../resources/enviroment/enviroment.resources';
 
@@ -12,6 +12,7 @@ export class NewprojectComponent implements OnInit {
   public newproject: Project;
   public savedProjectName: string;
   public classStatus: string;
+  @Output() public hideNewForm = new EventEmitter<boolean>();
 
   constructor() {
   }
