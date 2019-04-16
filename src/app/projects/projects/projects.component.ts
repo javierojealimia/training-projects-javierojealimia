@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../resources/enviroment/enviroment.resources';
+import { Project } from '../../model/project.model';
+import { ProjectsService } from '../projects.service';
 
 @Component( {
   selector: 'app-projects',
@@ -8,22 +9,27 @@ import { environment } from '../../resources/enviroment/enviroment.resources';
 } )
 export class ProjectsComponent implements OnInit {
 
-  public projects: { id: number; name: string; }[];
-  public formHidden: boolean;
+  public projects: Project[];
+  public formNewHidden: boolean;
 
-  constructor() { }
+  constructor( private projectService: ProjectsService ) {
+    this.projects = projectService.getProjects;
+  }
 
   ngOnInit() {
-    this.projects = environment.projects;
-    this.formHidden = false;
+    this.formNewHidden = false;
   }
 
   public showNewProject() {
-    this.formHidden = true;
+    this.formNewHidden = true;
   }
 
   public hideNewProject() {
-    this.formHidden = false;
+    this.formNewHidden = false;
+  }
+
+  public findProject( project: Project ) {
+    this.projects = this.projectService.findProject( project );
   }
 
 }

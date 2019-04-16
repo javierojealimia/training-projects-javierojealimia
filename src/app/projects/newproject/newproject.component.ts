@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Project } from '../../model/project.model';
-import { environment } from '../../resources/enviroment/enviroment.resources';
+import { ProjectsService } from '../projects.service';
 
 @Component( {
   selector: 'app-newproject',
@@ -14,7 +14,7 @@ export class NewprojectComponent implements OnInit {
   public classStatus: string;
   @Output() public hideNewForm = new EventEmitter<boolean>();
 
-  constructor() {
+  constructor( private projectService: ProjectsService ) {
   }
 
   ngOnInit() {
@@ -25,19 +25,16 @@ export class NewprojectComponent implements OnInit {
     this.classStatus = 'container card hidden';
   }
 
-  public saveProject() {
-    let maxId = 0;
-    environment.projects.forEach( element => {
-      if ( element.id > maxId ) {
-        maxId = element.id;
-      }
-    } );
-
-    this.newproject.id = maxId + 1;
-    environment.projects.push( { ...this.newproject } );
+  public saveProject( project: Project ) {
+    this.newproject = project;
+    this.projectService.saveProject( this.newproject );
     this.savedProjectName = this.newproject.name;
     this.newproject.name = '';
     this.classStatus = 'container card';
+  }
+
+  public hiddenNewForm( bandera: boolean ) {
+    this.hideNewForm.emit( bandera );
   }
 
 }

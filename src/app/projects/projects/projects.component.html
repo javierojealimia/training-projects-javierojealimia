@@ -1,10 +1,16 @@
 
-  <a class="button" [ngClass]="{ hidden: formHidden }" (click) = "showNewProject()">
+  <a class="button" [ngClass]="{ hidden: formNewHidden }" (click) = "showNewProject()">
     <span> Nuevo proyecto</span>
   </a>
 
+  <app-filter-projects-form
+    [ngClass] = "{ hidden: formNewHidden }"
+    (findProjectEmitter)="findProject($event)">
+
+  </app-filter-projects-form>
+
   <app-newproject
-    [ngClass] = "{ hidden: !formHidden }"
+    [ngClass] = "{ hidden: !formNewHidden }"
     (hideNewForm) = "hideNewProject()">
   </app-newproject>
 

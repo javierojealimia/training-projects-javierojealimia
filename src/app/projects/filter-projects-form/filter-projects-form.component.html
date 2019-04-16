@@ -1,0 +1,27 @@
+
+<form >
+  <fieldset>
+    <legend>Formulario de búsqueda</legend>
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="id">Id</label>
+        <input
+          name="id"
+          type="text"
+          [(ngModel)]="findProject.id"
+
+        />
+      </div>
+      <div class="col-sm-9">
+        <label for="name">Name</label>
+        <input
+          name="name"
+          type="text"
+          [(ngModel)]="findProject.name"
+
+        />
+      </div>
+    </div>
+  </fieldset>
+  <input value="Buscar" type="submit" (click)=" findProjectEmitter.emit(findProject) " />
+</form>

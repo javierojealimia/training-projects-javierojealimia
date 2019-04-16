@@ -1,0 +1,26 @@
+<form >
+  <fieldset>
+    <legend>Contact Form</legend>
+    <section>
+      <label for="name">Name</label>
+      <input
+        name="name"
+        type="text"
+        [(ngModel)]="newProjectString"
+
+      />
+    </section>
+  </fieldset>
+  <input value="Guardar" type="submit" (click)=" saveNewProject() " />
+  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(true)"> <span class="">Cancelar</span> </a>
+</form>
+<div class="{{classStatus}}">
+  <div class="row">
+      <div class="col-sm-1">
+        <span><img width="auto" style="vertical-align: -3px" src="./assets/ok.png" /></span>
+      </div>
+      <div class="col-sm-11">
+        <span>Guardado correctamente {{savedProjectName}}</span>
+      </div>
+  </div>
+</div>
