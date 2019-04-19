@@ -1,3 +1,17 @@
 <p>
-  viewer-project-form works!
+  Más información del proyecto:
 </p>
+<br/>
+
+<table  class="horizontal viewerprojectform-table">
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+    </tr>
+    <tr>
+      <td>{{ project.id }}</td>
+      <td>{{ project.name }}</td>
+    </tr>
+</table>
+
+<a routerLink="/projects" class="button"> <span> Volver</span> </a>

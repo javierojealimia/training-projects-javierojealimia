@@ -1,32 +1,24 @@
 
-  <a class="button" [ngClass]="{ hidden: formNewHidden }" (click) = "showNewProject()">
-    <span> Nuevo proyecto</span>
-  </a>
+<a class="button" [ngClass]="{ hidden: formNewHidden }" (click) = "showNewProject()">
+  <span> Nuevo proyecto</span>
+</a>
 
-  <app-filter-projects-form
-    [ngClass] = "{ hidden: formNewHidden }"
-    (findProjectEmitter)="findProject($event)">
+<app-filter-projects-form
+  [ngClass] = "{ hidden: formNewHidden }"
+  (findProjectEmitter)="findProject($event)">
 
-  </app-filter-projects-form>
+</app-filter-projects-form>
 
-  <app-newproject
-    [ngClass] = "{ hidden: !formNewHidden }"
-    (hideNewForm) = "hideNewProject()">
-  </app-newproject>
+<app-newproject
+  [ngClass] = "{ hidden: !formNewHidden }"
+  (hideNewForm) = "hideNewProject()">
+</app-newproject>
 
-  <main class="contenedor">
-  <table *ngIf="projects.length>0; else empty" class="striped hoverable">
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let project of projects">
-      <td>{{project.id}}</td>
-      <td>{{ project.name }}</td>
-      <td><a routerLink="project/{{project.id}}" class=""> <span class="icon-edit"></span> </a></td>
-    </tr>
-</table>
-<ng-template #empty> <i>No data yet</i> </ng-template>
-</main>
+<app-projects-list
+  [projects]="projects">
+</app-projects-list>
+
+<app-dashboard></app-dashboard>
+
+
 

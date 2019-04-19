@@ -33,14 +33,11 @@ export class ProjectsService implements Projects {
   public findProject( project: Project ): Project[] {
     // tslint:disable-next-line: triple-equals
     if ( project.id != undefined && project.id != 0 ) {
-      console.log( "1" );
       return this.findProjectById( project.id );
       // tslint:disable-next-line: triple-equals
     } else if ( project.name != undefined && project.name != '' ) {
-      console.log( "2" );
       return this.findProjectByName( project.name );
     }
-    console.log( "3" );
     return environment.projects;
   }
 

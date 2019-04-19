@@ -1,20 +1,5 @@
-<p>
-  Más información del proyecto:
-</p>
-<span>{{ project.id }}</span>
-<br/>
-
-<table  class="striped hoverable">
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-    </tr>
-    <tr>
-      <td>{{ project.id }}</td>
-      <td>{{ project.name }}</td>
-    </tr>
-</table>
-
-<a routerLink="/projects" class="button"> <span> Volver</span> </a>
+<app-viewer-project-form
+  [project]="project">
+</app-viewer-project-form>
 
 

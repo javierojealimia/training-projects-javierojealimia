@@ -25,7 +25,6 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   public saveNewProject() {
-    console.log( "Estoy aqui" );
     this.newProject.name = this.newProjectString;
     this.projectEmitter.emit( this.newProject );
   }
