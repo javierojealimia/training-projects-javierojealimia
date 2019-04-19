@@ -19,8 +19,15 @@
       />
     </section>
   </fieldset>
-  <input value="Guardar" type="submit" (click)=" saveNewProject() " [disabled]= "disabledSaveProjects()" />
-  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(true)"> <span class="">Cancelar</span> </a>
+
+  <button (click)=" saveNewProject() " [disabled]= "disabledSaveProjects()" >
+    <span class="fas fa-save margin-button-icon"></span>
+    <span>Guardar</span>
+  </button>
+  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(true)">
+    <span class="fas fa-minus margin-button-icon"></span>
+    <span class="">Cancelar</span>
+  </a>
 </form>
 <div class="{{classStatus}}">
   <div class="row">

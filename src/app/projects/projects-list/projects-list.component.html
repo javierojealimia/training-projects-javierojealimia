@@ -8,8 +8,25 @@
     <tr *ngFor="let project of projects">
       <td>{{project.id}}</td>
       <td>{{ project.name }}</td>
-      <td><a routerLink="project/{{project.id}}" class=""> <span class="icon-edit"></span> </a></td>
+      <td>
+        <a routerLink="project/{{project.id}}" class=""> <span class="icon-edit"></span> </a>
+        <label for="modal-control-{{project.id}}">
+          <span (click)="projectSelected(project)" class="far fa-trash-alt" style="cursor: pointer;"></span>
+        </label>
+        <input type="checkbox" id="modal-control-{{project.id}}" class="modal">
+        <div>
+            <div class="card">
+              <label for="modal-control-{{project.id}}" class="modal-close" ></label>
+              <h3 class="section">Confirmar operación</h3>
+              <p class="section">¿Desea borrar el proyecto '{{ project.name }}'?</p>
+              <a class="button secondary" (click) = "deleteProject(project)">
+                  <span> Confirmar</span>
+                </a>
+            </div>
+          </div>
+      </td>
     </tr>
   </table>
   <ng-template #empty> <i>No hay datos dados de alta</i> </ng-template>
 </main>
+

@@ -23,5 +23,8 @@
       </div>
     </div>
   </fieldset>
-  <input value="Buscar" type="submit" (click)=" findProjectEmitter.emit(findProject) " />
+  <a class="button" (click)=" findProjectEmitter.emit(findProject) " >
+    <span class="fas fa-search margin-button-icon" ></span>
+    <span>Buscar</span>
+  </a>
 </form>

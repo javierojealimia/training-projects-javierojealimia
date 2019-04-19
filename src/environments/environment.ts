@@ -11,7 +11,7 @@ export const environment = {
     { id: 2, name: 'Travel around the world' },
     { id: 3, name: 'Clean my room' }
   ],
-  maxProjects: 10
+  maxProjects: 20
 };
 
 /*

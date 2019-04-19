@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { ProjectsService } from '../../projects/projects.service';
 
 @Component( {
   selector: 'app-home',
@@ -9,18 +9,19 @@ import { environment } from '../../../environments/environment';
 export class HomeComponent implements OnInit {
 
   public numProjects: number;
-  public counterClass: string;
 
-  constructor() { }
+
+  constructor( private projectService: ProjectsService ) { }
 
   ngOnInit() {
-    this.numProjects = environment.projects.length;
-
-    if ( this.numProjects > 0 ) {
-      this.counterClass = 'tag';
-    } else {
-      this.counterClass = 'tag secondary';
-    }
+    this.numProjects = this.projectService.getNumberProjects( this.projectService.getProjects );
   }
+
+  public counterClass(): string {
+    return 'tag ' + this.getWarningNumProjects();
+  }
+
+  // tslint:disable-next-line: no-magic-numbers
+  public getWarningNumProjects = () => this.projectService.getMaxProjects - this.projectService.getNumberProjects( this.projectService.getProjects ) > 10 ? 'primary' : 'secondary';
 
 }
