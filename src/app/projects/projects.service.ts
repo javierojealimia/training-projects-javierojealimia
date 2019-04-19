@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Project } from '../model/project.model';
-import { environment } from '../resources/enviroment/enviroment.resources';
 import { Projects } from './projects';
 
 @Injectable( {
@@ -9,6 +9,8 @@ import { Projects } from './projects';
 export class ProjectsService implements Projects {
 
   public getProjects = environment.projects;
+
+  public getMaxProjects = environment.maxProjects;
   // tslint:disable-next-line: triple-equals
   public findProjectById = ( id: number ) => environment.projects.filter( c => c.id == id );
   // tslint:disable-next-line: triple-equals
@@ -39,6 +41,10 @@ export class ProjectsService implements Projects {
       return this.findProjectByName( project.name );
     }
     return environment.projects;
+  }
+
+  public getNumberProjects( projects: Project[] ): number {
+    return projects.length;
   }
 
   constructor() { }

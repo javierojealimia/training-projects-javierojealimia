@@ -11,9 +11,11 @@ export class ProjectsComponent implements OnInit {
 
   public projects: Project[];
   public formNewHidden: boolean;
+  public getMaxProjects: number;
 
   constructor( private projectService: ProjectsService ) {
     this.projects = projectService.getProjects;
+    this.getMaxProjects = projectService.getMaxProjects;
   }
 
   ngOnInit() {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Project } from '../../model/project.model';
+import { ProjectsService } from '../projects.service';
 
 @Component( {
   selector: 'app-new-project-form',
@@ -15,7 +16,7 @@ export class NewProjectFormComponent implements OnInit {
   @Input() public classStatus: string;
   @Input() public savedProjectName: string;
 
-  constructor() { }
+  constructor( private projectService: ProjectsService ) { }
 
   ngOnInit() {
     this.newProject = {
@@ -27,6 +28,10 @@ export class NewProjectFormComponent implements OnInit {
   public saveNewProject() {
     this.newProject.name = this.newProjectString;
     this.projectEmitter.emit( this.newProject );
+  }
+
+  public disabledSaveProjects(): boolean {
+    return this.projectService.getMaxProjects <= this.projectService.getNumberProjects( this.projectService.getProjects );
   }
 
 }
