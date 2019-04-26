@@ -1,5 +1,5 @@
 
-<a class="button" [ngClass]="{ hidden: formNewHidden }" (click) = "showNewProject()">
+<a class="button" [ngClass]="{ hidden: formNewHidden }" (click) = "newProjectViewControl(true)">
   <span class="fas fa-folder-plus"></span>
   <span> Nuevo proyecto</span>
 </a>
@@ -12,17 +12,19 @@
 
 <app-newproject
   [ngClass] = "{ hidden: !formNewHidden }"
-  (hideNewForm) = "hideNewProject()">
+  (hideNewForm) = "newProjectViewControl($event)"
+  (savedProjectEmitter)= "refreshProjects($event)">
 </app-newproject>
 
 <app-dashboard
-  [projects]="projects"
+  [projects]="(allProjects$ | async)?.length"
   [getMaxProjects]="getMaxProjects"
 >
 </app-dashboard>
 
 <app-projects-list
-  [projects]="projects">
+  [projects]="(projects$ | async)"
+  (projectDeleted)="refreshProjects($event)">
 </app-projects-list>
 
 

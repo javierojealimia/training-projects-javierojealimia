@@ -1,5 +1,5 @@
 <main class="contenedor">
-  <table *ngIf="projects.length>0; else empty" class="striped hoverable">
+  <table *ngIf="(projects != null && projects.length>0); else empty" class="striped hoverable">
     <tr>
       <th>Id</th>
       <th>Nombre</th>

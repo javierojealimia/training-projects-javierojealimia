@@ -1,51 +1,69 @@
+
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Project } from '../model/project.model';
 import { Projects } from './projects';
 
-@Injectable( {
-  providedIn: 'root'
-} )
+@Injectable()
 export class ProjectsService implements Projects {
 
-  public getProjects = environment.projects;
+  private urlApi = environment.urlApi;
+  private projects: Project[];
+  public projectObserbable$: Observable<Project[]> = this.http.get<Project[]>( this.urlApi );
 
-  public getMaxProjects = environment.maxProjects;
-  // tslint:disable-next-line: triple-equals
-  public findProjectById = ( id: number ) => environment.projects.filter( c => c.id == id );
-  // tslint:disable-next-line: triple-equals
-  public findProjectByName = ( name: string ) => environment.projects.filter( c => c.name.includes( name ) );
+  constructor( private http: HttpClient ) { }
 
-  public saveProject( project: Project ) {
-    let maxId = 0;
-    environment.projects.forEach( element => {
-      if ( element.id > maxId ) {
-        maxId = element.id;
-      }
-    } );
-
-    project.id = maxId + 1;
-    environment.projects.push( { ...project } );
+  public getMaxProjects(): number {
+    return environment.maxProjects
   }
 
-  public deleteProject( project: Project ) {
-    environment.projects.splice( environment.projects.indexOf( project ), 1 );
+  public getProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>( this.urlApi ).pipe( map( this.transformArray ) );
+  }
+  public findProjectById( id: number ): Observable<Project[]> {
+    return this.http.get<Project[]>( this.urlApi )
+      .pipe( map( this.transformArray ), map( results => {
+        return results.filter( result => result.id == id )
+      } ) );
   }
 
-  public findProject( project: Project ): Project[] {
-    // tslint:disable-next-line: triple-equals
+  public findProjectByName( name: string ): Observable<Project[]> {
+    return this.http
+      .get<Project[]>( this.urlApi )
+      .pipe( map( this.transformArray ), map( results => {
+        return results.filter( result => result.name.toUpperCase().includes( name.toUpperCase() ) )
+      } ) );
+  }
+
+  public saveProject( project: Project ): Observable<any> {
+    return this.http
+      .post( this.urlApi, project );
+  }
+
+  public deleteProject( project: Project ): Observable<any> {
+    const url = this.urlApi + '/' + project.id;
+    return this.http.delete<Project>( url );
+  }
+
+  public findProject( project: Project ): Observable<Project[]> {
     if ( project.id != undefined && project.id != 0 ) {
       return this.findProjectById( project.id );
-      // tslint:disable-next-line: triple-equals
     } else if ( project.name != undefined && project.name != '' ) {
       return this.findProjectByName( project.name );
     }
-    return environment.projects;
+    return this.getProjects();
   }
 
-  public getNumberProjects( projects: Project[] ): number {
-    return projects.length;
+  private transformArray( ar: any[] ) {
+    if ( ar != null ) {
+      ar.forEach( fila => {
+        fila['id'] = fila['_id'];
+        delete fila['_id'];
+      } );
+    }
+    return ar;
   }
-
-  constructor() { }
 }

@@ -11,7 +11,8 @@ export const environment = {
     { id: 2, name: 'Travel around the world' },
     { id: 3, name: 'Clean my room' }
   ],
-  maxProjects: 20
+  maxProjects: 10,
+  urlApi: 'https://api-base.herokuapp.com/api/pub/projects'
 };
 
 /*

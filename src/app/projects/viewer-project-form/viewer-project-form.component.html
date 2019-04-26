@@ -3,15 +3,16 @@
 </p>
 <br/>
 
-<table  class="horizontal viewerprojectform-table">
+<table *ngIf="(project != null && project.length>0); else empty"  class="horizontal viewerprojectform-table">
     <tr>
       <th>Id</th>
       <th>Nombre</th>
     </tr>
     <tr>
-      <td>{{ project.id }}</td>
-      <td>{{ project.name }}</td>
+      <td>{{ project[0]?.id }}</td>
+      <td>{{ project[0]?.name }}</td>
     </tr>
 </table>
+<ng-template #empty> <i>Buscando....</i> </ng-template>
 
 <a routerLink="/projects" class="button"> <span> Volver</span> </a>

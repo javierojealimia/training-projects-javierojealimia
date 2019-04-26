@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
 
 @Component( {
@@ -9,7 +8,7 @@ import { ProjectsService } from '../projects.service';
 } )
 export class DashboardComponent implements OnInit {
 
-  @Input() public projects: Project[];
+  @Input() public projects: number;
   @Input() public getMaxProjects: number;
 
   constructor( private projectService: ProjectsService ) { }
@@ -17,7 +16,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getNumProjects = () => this.projectService.getNumberProjects( this.projects );
+  public getNumProjects = () => this.projects;
   // tslint:disable-next-line: no-magic-numbers
   public getWarningNumProjects = () => this.getMaxProjects - this.getNumProjects() > 10 ? 'primary' : 'secondary';
 

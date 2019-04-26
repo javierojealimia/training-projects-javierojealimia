@@ -1,5 +1,6 @@
-<p>
+<p *ngIf="((projects$ | async) != null && (projects$ | async)?.length>0); else empty">
   Hay
-  <mark [class]="counterClass()">{{ numProjects }}</mark>
+  <mark [class]="counterClass()">{{ (projects$ | async)?.length }}</mark>
   proyectos dados de alta en este momento.
 </p>
+<ng-template #empty> <i>No hay datos dados de alta</i> </ng-template>

@@ -1,4 +1,4 @@
 <div class="card fluid">
-  <div class="section">Número de projectos: {{ getNumProjects() }} de  {{ getMaxProjects }}</div>
+  <div class="section">Número de projectos dados de alta: {{ getNumProjects() }} de un máximo de {{ getMaxProjects }}</div>
   <progress [value]="getNumProjects()" [ngClass]="getWarningNumProjects()" [max]="getMaxProjects"> </progress>
 </div>

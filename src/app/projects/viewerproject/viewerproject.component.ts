@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
 
 @Component( {
@@ -9,7 +11,7 @@ import { ProjectsService } from '../projects.service';
 } )
 export class ViewerprojectComponent implements OnInit {
 
-  public project: { id: number; name: string; };
+  public project$: Observable<Project[]>;
 
   constructor( private activateRoute: ActivatedRoute, private projectService: ProjectsService ) {
   }
@@ -17,7 +19,7 @@ export class ViewerprojectComponent implements OnInit {
   ngOnInit() {
     this.activateRoute.params.subscribe( params => {
       // tslint:disable-next-line: triple-equals
-      this.project = this.projectService.findProjectById( params['id'] )[0];
+      this.project$ = this.projectService.findProjectById( params['id'] );
     } );
   }
 

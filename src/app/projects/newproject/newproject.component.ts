@@ -13,6 +13,7 @@ export class NewprojectComponent implements OnInit {
   public savedProjectName: string;
   public classStatus: string;
   @Output() public hideNewForm = new EventEmitter<boolean>();
+  @Output() public savedProjectEmitter = new EventEmitter<boolean>();
 
   constructor( private projectService: ProjectsService ) {
   }
@@ -26,11 +27,10 @@ export class NewprojectComponent implements OnInit {
   }
 
   public saveProject( project: Project ) {
-    this.newproject = project;
-    this.projectService.saveProject( this.newproject );
+    this.savedProjectEmitter.emit( true );
     this.savedProjectName = this.newproject.name;
-    this.newproject.name = '';
     this.classStatus = 'container card';
+
   }
 
   public hiddenNewForm( bandera: boolean ) {

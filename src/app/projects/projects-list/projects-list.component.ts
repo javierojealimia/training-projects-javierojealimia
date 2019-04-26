@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
 
@@ -11,6 +11,8 @@ export class ProjectsListComponent implements OnInit {
 
   @Input() public projects: Project[];
   public projectSelectedVar: Project;
+  public bandera: boolean;
+  @Output() public projectDeleted = new EventEmitter<boolean>();
 
   constructor( private projectService: ProjectsService ) { }
 
@@ -18,7 +20,9 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public deleteProject( project: Project ) {
-    this.projectService.deleteProject( project );
+    this.projectService.deleteProject( project ).subscribe( result => {
+      this.projectDeleted.emit( false );
+    } );
   }
 
   public projectSelected( project: Project ) {

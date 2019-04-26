@@ -1,12 +1,4 @@
 <form >
-    <div [hidden]="!disabledSaveProjects()">
-      <div class="row">
-          <div class="col-sm-11" style="color: red;">
-            <span>Número máximo de proyectos alcanzados</span>
-          </div>
-      </div>
-    </div>
-
   <fieldset>
     <legend>Alta de proyecto</legend>
     <section>
@@ -20,11 +12,11 @@
     </section>
   </fieldset>
 
-  <button (click)=" saveNewProject() " [disabled]= "disabledSaveProjects()" >
+  <button (click)=" saveNewProject() " [disabled]= "!canSave" >
     <span class="fas fa-save margin-button-icon"></span>
     <span>Guardar</span>
   </button>
-  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(true)">
+  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(false)">
     <span class="fas fa-minus margin-button-icon"></span>
     <span class="">Cancelar</span>
   </a>

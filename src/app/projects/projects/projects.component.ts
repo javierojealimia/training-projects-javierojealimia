@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
 
@@ -9,29 +10,40 @@ import { ProjectsService } from '../projects.service';
 } )
 export class ProjectsComponent implements OnInit {
 
-  public projects: Project[];
+  public projects$: Observable<Project[]>;
+  public allProjects$: Observable<Project[]>;
   public formNewHidden: boolean;
   public getMaxProjects: number;
 
   constructor( private projectService: ProjectsService ) {
-    this.projects = projectService.getProjects;
-    this.getMaxProjects = projectService.getMaxProjects;
+
+    this.refreshProjects( false );
+    this.getMaxProjects = projectService.getMaxProjects();
+
   }
 
   ngOnInit() {
-    this.formNewHidden = false;
+
   }
 
-  public showNewProject() {
-    this.formNewHidden = true;
-  }
-
-  public hideNewProject() {
-    this.formNewHidden = false;
+  public newProjectViewControl( bandera: boolean ) {
+    this.formNewHidden = bandera;
   }
 
   public findProject( project: Project ) {
-    this.projects = this.projectService.findProject( project );
+    this.projects$ = this.projectService.findProject( project );
+  }
+
+  public saveProject( project: Project ) {
+    this.projectService.saveProject( project ).subscribe( result => {
+      return this.projects$ = this.projectService.getProjects();
+    } );
+  }
+
+  public refreshProjects( bandera: boolean ) {
+    this.projects$ = this.projectService.getProjects();
+    this.allProjects$ = this.projectService.getProjects();
+    this.newProjectViewControl( bandera );
   }
 
 }

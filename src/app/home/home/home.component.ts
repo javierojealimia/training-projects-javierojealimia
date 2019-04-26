@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Project } from '../../model/project.model';
 import { ProjectsService } from '../../projects/projects.service';
 
 @Component( {
@@ -9,19 +12,23 @@ import { ProjectsService } from '../../projects/projects.service';
 export class HomeComponent implements OnInit {
 
   public numProjects: number;
+  public projects$: Observable<Project[]>;
+  private warningProjects: string;
 
-
-  constructor( private projectService: ProjectsService ) { }
+  constructor( private projectService: ProjectsService ) {
+    this.warningProjects = 'primary';
+  }
 
   ngOnInit() {
-    this.numProjects = this.projectService.getNumberProjects( this.projectService.getProjects );
+    this.projects$ = this.projectService.getProjects().pipe( map( resultados => {
+      if ( resultados != null && this.projectService.getMaxProjects() - resultados.length < 10 ) {
+        this.warningProjects = 'secondary';
+      }
+      return resultados;
+    } ) );
   }
 
   public counterClass(): string {
-    return 'tag ' + this.getWarningNumProjects();
+    return 'tag ' + this.warningProjects;
   }
-
-  // tslint:disable-next-line: no-magic-numbers
-  public getWarningNumProjects = () => this.projectService.getMaxProjects - this.projectService.getNumberProjects( this.projectService.getProjects ) > 10 ? 'primary' : 'secondary';
-
 }
