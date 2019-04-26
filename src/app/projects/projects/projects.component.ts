@@ -14,6 +14,7 @@ export class ProjectsComponent implements OnInit {
   public allProjects$: Observable<Project[]>;
   public formNewHidden: boolean;
   public getMaxProjects: number;
+  public canSave: boolean;
 
   constructor( private projectService: ProjectsService ) {
 
@@ -44,6 +45,16 @@ export class ProjectsComponent implements OnInit {
     this.projects$ = this.projectService.getProjects();
     this.allProjects$ = this.projectService.getProjects();
     this.newProjectViewControl( bandera );
+    this.canSaveControl();
+  }
+
+  public canSaveControl() {
+    this.canSave = false;
+    this.projectService.getProjects().subscribe( resultados => {
+      if ( resultados == null || ( resultados != null && this.projectService.getMaxProjects() > resultados.length ) ) {
+        this.canSave = true;
+      }
+    } );
   }
 
 }

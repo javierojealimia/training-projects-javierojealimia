@@ -11,14 +11,14 @@ export class NewProjectFormComponent implements OnInit {
 
   public newProjectString: string;
   public newProject: Project;
-  public canSave: boolean;
+
   @Output() public projectEmitter = new EventEmitter<Project>();
   @Output() public cancelNewProject = new EventEmitter<boolean>();
   @Input() public classStatus: string;
   @Input() public savedProjectName: string;
+  @Input() public canSave: boolean;
 
   constructor( private projectService: ProjectsService ) {
-    this.canSaveControl();
   }
 
   ngOnInit() {

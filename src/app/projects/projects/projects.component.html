@@ -12,6 +12,7 @@
 
 <app-newproject
   [ngClass] = "{ hidden: !formNewHidden }"
+  [canSave]="canSave"
   (hideNewForm) = "newProjectViewControl($event)"
   (savedProjectEmitter)= "refreshProjects($event)">
 </app-newproject>

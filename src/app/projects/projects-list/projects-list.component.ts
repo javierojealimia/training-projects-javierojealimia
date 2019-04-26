@@ -26,7 +26,6 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public projectSelected( project: Project ) {
-    console.log( project.id );
     this.projectSelectedVar = project;
   }
 

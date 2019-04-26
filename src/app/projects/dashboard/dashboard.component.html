@@ -1,4 +1,5 @@
-<div class="card fluid">
+<div class="card fluid" *ngIf="(getNumProjects() != null && getNumProjects()>0); else empty">
   <div class="section">Número de projectos dados de alta: {{ getNumProjects() }} de un máximo de {{ getMaxProjects }}</div>
   <progress [value]="getNumProjects()" [ngClass]="getWarningNumProjects()" [max]="getMaxProjects"> </progress>
 </div>
+<ng-template #empty> </ng-template>
