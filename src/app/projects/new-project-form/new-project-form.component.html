@@ -1,4 +1,4 @@
-<form >
+<form [formGroup]="newProjectForm">
   <fieldset>
     <legend>Alta de proyecto</legend>
     <section>
@@ -6,17 +6,17 @@
       <input
         name="name"
         type="text"
-        [(ngModel)]="newProjectString"
-
+        formControlName ="name"
       />
+      <span>{{ getError('name') }}</span>
     </section>
   </fieldset>
 
-  <button (click)=" saveNewProject() " [disabled]= "!canSave" >
+  <button (click)=" saveNewProject() " [disabled]= "!canSave || newProjectForm.invalid" >
     <span class="fas fa-save margin-button-icon"></span>
     <span>Guardar</span>
   </button>
-  <a routerLink="/projects" class="button secondary" (click)="cancelNewProject.emit(false)">
+  <a routerLink="/projects" class="button secondary" (click)="cancelNewProjectControl()">
     <span class="fas fa-minus margin-button-icon"></span>
     <span class="">Cancelar</span>
   </a>

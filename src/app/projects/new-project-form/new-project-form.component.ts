@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UtilitiesService } from '../../core/utilities.service';
 import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
 
@@ -9,8 +11,7 @@ import { ProjectsService } from '../projects.service';
 } )
 export class NewProjectFormComponent implements OnInit {
 
-  public newProjectString: string;
-  public newProject: Project;
+  public newProjectForm: FormGroup;
 
   @Output() public projectEmitter = new EventEmitter<Project>();
   @Output() public cancelNewProject = new EventEmitter<boolean>();
@@ -18,25 +19,33 @@ export class NewProjectFormComponent implements OnInit {
   @Input() public savedProjectName: string;
   @Input() public canSave: boolean;
 
-  constructor( private projectService: ProjectsService ) {
+  constructor( private projectService: ProjectsService,
+    private formBuilder: FormBuilder,
+    private utilitiesService: UtilitiesService ) {
   }
 
   ngOnInit() {
-    this.newProject = {
-      id: 0,
-      name: ''
-    }
+    this.buildForm();
+  }
+
+  private buildForm() {
+    const minNameLenght = 5;
+    const maxNameLenght = 200;
+    this.newProjectForm = this.formBuilder.group( {
+      name: ['', [Validators.required, Validators.minLength( minNameLenght ), Validators.maxLength( maxNameLenght )]]
+    } );
   }
 
   public saveNewProject() {
-    this.newProject.name = this.newProjectString;
-    this.projectService.saveProject( this.newProject ).subscribe( result => {
+    const newProject = {
+      id: 0,
+      name: ''
+    }
+    newProject.name = this.newProjectForm.controls['name'].value;
+    this.projectService.saveProject( newProject ).subscribe( result => {
       this.canSaveControl();
-      this.projectEmitter.emit( this.newProject );
-      this.newProjectString = ''
+      this.projectEmitter.emit( newProject );
     } );
-
-
   }
 
   public canSaveControl() {
@@ -46,6 +55,15 @@ export class NewProjectFormComponent implements OnInit {
         this.canSave = true;
       }
     } );
+  }
+
+  public cancelNewProjectControl() {
+    this.buildForm();
+    this.cancelNewProject.emit( false );
+  }
+
+  public getError( controlName: string ): string {
+    return this.utilitiesService.getError( this.newProjectForm, controlName );
   }
 
 }

@@ -1,5 +1,5 @@
 
-<form >
+<form [formGroup]="findProjectForm">
   <fieldset>
     <legend>Formulario de búsqueda</legend>
     <div class="row">
@@ -8,7 +8,7 @@
         <input
           name="id"
           type="text"
-          [(ngModel)]="findProject.id"
+          formControlName="id"
 
         />
       </div>
@@ -17,14 +17,18 @@
         <input
           name="name"
           type="text"
-          [(ngModel)]="findProject.name"
+          formControlName="name"
 
         />
       </div>
     </div>
   </fieldset>
-  <a class="button" (click)=" findProjectEmitter.emit(findProject) " >
+  <button class="button" (click)=" findProject()" [disabled]="findProjectForm.invalid" >
     <span class="fas fa-search margin-button-icon" ></span>
     <span>Buscar</span>
-  </a>
+  </button>
+  <button class="button" (click)=" cleanProject() " >
+    <span class="fas fa-broom margin-button-icon" ></span>
+    <span>Limpiar</span>
+  </button>
 </form>
