@@ -1,7 +1,9 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatSidenavModule, MatSortModule, MatTableModule, MatToolbarModule, MatTreeModule } from '@angular/material';
 import { AuditUrlInterceptorService } from './audit-url-interceptor.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterProjectsFormComponent } from './filter-projects-form/filter-projects-form.component';
@@ -22,7 +24,20 @@ import { ViewerprojectComponent } from './viewerproject/viewerproject.component'
     ProjectsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTreeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [ProjectsService,
     {

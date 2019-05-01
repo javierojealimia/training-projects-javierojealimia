@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { UtilitiesService } from '../../core/utilities.service';
 import { Project } from '../../model/project.model';
 
@@ -21,7 +22,7 @@ export class FilterProjectsFormComponent implements OnInit {
   }
 
   private buildForm() {
-    const maxNameLenght = 200;
+    const maxNameLenght = environment.maxNameLenght;
     this.findProjectForm = this.formBuilder.group( {
       id: ['', [this.validateId]],
       name: ['', [Validators.maxLength( maxNameLenght )]]
@@ -31,7 +32,7 @@ export class FilterProjectsFormComponent implements OnInit {
   private validateId( control: AbstractControl ) {
     let error = null;
     if ( control.value != '' && !parseFloat( control.value ) ) {
-      error = { ...error, number: 'El ID debe de ser numérico' };
+      error = { ...error, validateid: 'El ID debe de ser numérico' };
     }
     return error;
   }
@@ -55,6 +56,24 @@ export class FilterProjectsFormComponent implements OnInit {
       name: ''
     };
     this.findProjectEmitter.emit( findProject );
+  }
+
+  public getError( controlName: string ): string {
+    const errores = this.utilitiesService.getError( this.findProjectForm, controlName );
+    let stringError = '';
+    if ( errores != null ) {
+      Object.keys( errores ).forEach( keyError => {
+        if ( keyError == 'validateid' ) {
+          stringError = stringError + errores[keyError];
+        } else if ( keyError == 'minlength' ) {
+          stringError = stringError + ' El nombre del proyecto debe tener al menos ' + environment.minNameLenght + ' caráteres';
+        } else if ( keyError == 'maxlength' ) {
+          stringError = stringError + ' El nombre del proyecto no puede tener más de ' + environment.maxNameLenght + ' carácteres';
+        }
+        console.log( 'Key control: ' + controlName + ', keyError: ' + keyError + ', err value: ', errores[keyError] );
+      } );
+    }
+    return stringError;
   }
 
 }

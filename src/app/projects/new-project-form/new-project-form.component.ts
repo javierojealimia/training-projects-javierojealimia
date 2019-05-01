@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { UtilitiesService } from '../../core/utilities.service';
 import { Project } from '../../model/project.model';
 import { ProjectsService } from '../projects.service';
@@ -29,8 +30,8 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   private buildForm() {
-    const minNameLenght = 5;
-    const maxNameLenght = 200;
+    const minNameLenght = environment.minNameLenght;
+    const maxNameLenght = environment.maxNameLenght;
     this.newProjectForm = this.formBuilder.group( {
       name: ['', [Validators.required, Validators.minLength( minNameLenght ), Validators.maxLength( maxNameLenght )]]
     } );
@@ -63,7 +64,21 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   public getError( controlName: string ): string {
-    return this.utilitiesService.getError( this.newProjectForm, controlName );
+    const errores = this.utilitiesService.getError( this.newProjectForm, controlName );
+    let stringError = '';
+    if ( errores != null ) {
+      Object.keys( errores ).forEach( keyError => {
+        if ( keyError == 'required' ) {
+          stringError = stringError + ' Campo obligatorio';
+        } else if ( keyError == 'minlength' ) {
+          stringError = stringError + ' El nombre del proyecto debe tener al menos ' + environment.minNameLenght + ' caráteres';
+        } else if ( keyError == 'maxlength' ) {
+          stringError = stringError + ' El nombre del proyecto no puede tener más de ' + environment.maxNameLenght + ' carácteres';
+        }
+        console.log( 'Key control: ' + controlName + ', keyError: ' + keyError + ', err value: ', errores[keyError] );
+      } );
+    }
+    return stringError;
   }
 
 }

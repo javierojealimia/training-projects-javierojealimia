@@ -23,11 +23,16 @@
 >
 </app-dashboard>
 
-<app-projects-list
+<!--<app-projects-list
   [projects]="(projects$ | async)"
   (projectDeleted)="refreshProjects($event)">
-</app-projects-list>
-
-
+</app-projects-list>-->
+<div *ngIf="projects$ | async; let projects; else empty">
+  <app-projects-list
+    [projects]="projects"
+    (projectDeleted)="refreshProjects($event)">
+  </app-projects-list>
+</div>
+<ng-template #empty> <i>No hay datos dados de alta</i> </ng-template>
 
 

@@ -1,5 +1,5 @@
 export const environment = {
-  appName: 'Training Projects',
+  appName: 'ProjShared',
   production: true,
   projects: [
     { id: 0, name: 'Learn Angular' },
@@ -8,5 +8,7 @@ export const environment = {
     { id: 3, name: 'Clean my room' }
   ],
   maxProjects: 500,
-  urlApi: 'https://api-base.herokuapp.com/api/pub/projects'
+  urlApi: 'https://api-base.herokuapp.com/api/pub/projects',
+  maxNameLenght: 30,
+  minNameLenght: 5
 };

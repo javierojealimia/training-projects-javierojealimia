@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 @Injectable( {
   providedIn: 'root'
@@ -8,12 +8,11 @@ export class UtilitiesService {
 
   constructor() { }
 
-  public getError( form: FormGroup, controlName: string ): string {
-    let error = '';
+  public getError( form: FormGroup, controlName: string ): ValidationErrors {
     const control = form.get( controlName );
     if ( control.touched && control.errors != null ) {
-      error = JSON.stringify( control.errors );
+      return control.errors;
     }
-    return error;
+    return null;
   }
 }

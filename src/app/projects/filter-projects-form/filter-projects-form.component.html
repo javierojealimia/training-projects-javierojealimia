@@ -4,22 +4,16 @@
     <legend>Formulario de búsqueda</legend>
     <div class="row">
       <div class="col-sm-3">
-        <label for="id">Id</label>
-        <input
-          name="id"
-          type="text"
-          formControlName="id"
-
-        />
+        <mat-form-field>
+          <input matInput placeholder="Id" formControlName="id">
+        </mat-form-field>
+        <mat-error *ngIf="findProjectForm.invalid">{{ getError('id') }}</mat-error>
       </div>
       <div class="col-sm-9">
-        <label for="name">Name</label>
-        <input
-          name="name"
-          type="text"
-          formControlName="name"
-
-        />
+        <mat-form-field>
+          <input matInput placeholder="Nombre del proyecto" formControlName="name">
+        </mat-form-field>
+        <mat-error *ngIf="findProjectForm.invalid">{{ getError('name') }}</mat-error>
       </div>
     </div>
   </fieldset>

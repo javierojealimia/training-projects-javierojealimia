@@ -2,13 +2,12 @@
   <fieldset>
     <legend>Alta de proyecto</legend>
     <section>
-      <label for="name">Nombre</label>
-      <input
-        name="name"
-        type="text"
-        formControlName ="name"
-      />
-      <span>{{ getError('name') }}</span>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Nombre del proyecto" formControlName="name" required>
+        </mat-form-field>
+        <mat-error *ngIf="newProjectForm.invalid">{{ getError('name') }}</mat-error>
+      </div>
     </section>
   </fieldset>
 
@@ -21,14 +20,16 @@
     <span class="">Cancelar</span>
   </a>
 </form>
-<div class="{{classStatus}}">
-  <div class="row">
-      <div class="col-sm-1">
+<mat-card class="{{classStatus}}">
+  <mat-card-content>
+    <div style="padding-top: 10px">
+      <span>
         <span><img width="auto" style="vertical-align: -3px" src="./assets/ok.png" /></span>
-      </div>
-      <div class="col-sm-11">
+      </span>
+      <span style="margin-left: 5px">
         <span>Guardado correctamente {{savedProjectName}}</span>
-      </div>
-  </div>
-</div>
+      </span>
+    </div>
+  </mat-card-content>
+</mat-card>
 
